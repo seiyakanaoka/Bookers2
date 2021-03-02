@@ -1,0 +1,49 @@
+<div class="sidebar">
+  <h1>User info</h1>
+  
+  <h1>New book</h1>
+    <%= form_with model:@book, local:true do |f| %>
+
+  <div class="book-field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="book-field">
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+
+  <div class="book-action">
+    <%= f.submit "Create Book" %>
+  </div>
+    <% end %>
+</div>
+
+<div class="main">
+  
+  <h1>Books</h1>
+  
+    <table>
+      
+      <thead>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+      </thead>
+      
+      <tbody>
+        <tr>
+          <td><%= link_to "name", book_path %></td>
+          <td><%= @book.title %></td>
+          <td><%= @book.body %></td>
+          <td><%= link_to "Edit", edit_book_path(@book.id) %></td>
+          <td><%= link_to "Destroy", book_path(@book.id), method: :delete %></td>
+        </tr>
+      </tbody>
+      
+    </table>
+    
+</div>
