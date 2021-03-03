@@ -1,15 +1,9 @@
   <div class="sidebar">
     <h1>User info</h1>
-      <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
-      
-      <h3><%= @user.name %></h3>
-      
-      <h3><%= @user.introduction %></h3>
-      
-      <% if @user.id == current_user.id %>
+      <%= image_tag("no_image.jpg") %>
+      <h3><%= current_user.name %></h3>
+      <h3><%= current_user.introduction %></h3>
       <%= link_to "profile-edit", edit_user_path(current_user.id) %>
-      <% end %>
-      
   </div>
   
     <h1>New book</h1>
@@ -34,16 +28,16 @@
   <h1>Books</h1>
     <table>
       <thead>
+        <tr>Image</tr>
+        <tr>Name</tr>
         <tr></tr>
-        <tr>Title</tr>
-        <tr>Opinion</tr>
       </thead>
       <tbody>
-      <% @books.each do |book| %>
+      <% @users.each do |user| %>
         <tr>
-          <td><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></td>
-          <td><%= link_to book_path(book.id) do %><%= book.title %><% end %></td>
-          <td><%= book.body %></td>
+          <td></td>
+          <td><%= user.name %></td>
+          <td><%= link_to "show", user_path(user.id) %></td>
         </tr>
       <% end %>
       </tbody>

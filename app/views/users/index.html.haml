@@ -1,0 +1,29 @@
+.sidebar
+  %h1 User info
+  = image_tag("no_image.jpg")
+  %h3= current_user.name
+  %h3= current_user.introduction
+  = link_to "profile-edit", edit_user_path(current_user.id)
+%h1 New book
+= form_with model:@book, local:true do |f|
+  .book-field
+    = f.label :title
+    = f.text_field :title
+  .book-field
+    = f.label :body
+    = f.text_area :body
+  .book-action
+    = f.submit "Create Book"
+.main
+  %h1 Books
+  %table
+    %thead
+      %tr Image
+      %tr Name
+      %tr
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td
+          %td= user.name
+          %td= link_to "show", user_path(user.id)

@@ -1,7 +1,18 @@
-<div class="sidebar">
-  <h1>User info</h1>
-
-  <h1>New book</h1>
+  <div class="sidebar">
+    <h1>User info</h1>
+      <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
+      
+      <h3><%= current_user.name %></h3>
+      
+      <h3><%= current_user.introduction %></h3>
+      
+      <% if current_user.id == current_user.id %>
+      <%= link_to "profile-edit", edit_user_path(current_user.id) %>
+      <% end %>
+      
+  </div>
+  
+    <h1>New book</h1>
     <%= form_with model:@book, local:true do |f| %>
 
   <div class="book-field">
@@ -18,7 +29,6 @@
     <%= f.submit "Create Book" %>
   </div>
     <% end %>
-</div>
 
 <div class="main">
   <h1>Books</h1>
@@ -31,7 +41,7 @@
       <tbody>
       <% @books.each do |book| %>
         <tr>
-          <td></td>
+          <td><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></td>
           <td><%= link_to book_path(book.id) do %><%= book.title %><% end %></td>
           <td><%= book.body %></td>
         </tr>

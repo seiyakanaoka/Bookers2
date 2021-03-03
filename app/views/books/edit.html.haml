@@ -1,0 +1,12 @@
+%h1 Editing Book
+= form_with model:@book, local:true do |f|
+  .edit-book
+    = f.label :title
+    = f.text_field :title
+  .edit-book
+    = f.label :body
+    = f.text_field :body
+  .edit-go
+    = f.submit 'Update Book'
+= link_to "Show", book_path(@book.id)
+|#{link_to "Back", books_path}
