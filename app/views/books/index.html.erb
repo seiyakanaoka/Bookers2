@@ -1,51 +1,70 @@
-  <div class="sidebar">
-    <h1>User info</h1>
-      <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
+<div class="errors"><% if @book.errors.any? %>
+  <%= @book.errors.count %>error prohibited this obj from being saved:
+    <ul><% @book.errors.full_messages.each do |message| %>
+     <li><%= message %></li>
+     <% end %>
+     </ul>
+  <% end %>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg 4">
+      <div class="user-info">
+        <h1>User info</h1>
+          <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></p>
+          <p><%= @user.name %></p>
+          <p><%= @user.introduction %></p>
       
-      <h3><%= current_user.name %></h3>
+          <% if @user.id == current_user.id %>
+          <%= link_to "profile-edit", edit_user_path(current_user.id) %>
+          <% end %>
+      </div>
       
-      <h3><%= current_user.introduction %></h3>
-      
-      <% if current_user.id == current_user.id %>
-      <%= link_to "profile-edit", edit_user_path(current_user.id) %>
-      <% end %>
-      
-  </div>
+      <div class="book-form">
+      <h1>New book</h1>
+        <div class="book-form-content">
+        <%= form_with model:@book, local:true do |f| %>
+
+        <div class="book-field">
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+        </div>
+
+        <div class="book-field">
+          <%= f.label :body %>
+          <%= f.text_area :body %>
+        </div>
+
+        <div class="book-action">
+          <%= f.submit "Create Book" %>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
   
-    <h1>New book</h1>
-    <%= form_with model:@book, local:true do |f| %>
-
-  <div class="book-field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="book-field">
-    <%= f.label :body %>
-    <%= f.text_area :body %>
-  </div>
-
-  <div class="book-action">
-    <%= f.submit "Create Book" %>
-  </div>
-    <% end %>
-
-<div class="main">
-  <h1>Books</h1>
-    <table>
-      <thead>
-        <tr></tr>
-        <tr>Title</tr>
-        <tr>Opinion</tr>
-      </thead>
+    <div class="col-lg-8">
+    <h1>Books</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr></tr>
+          <tr>Title</tr>
+          <tr>Opinion</tr>
+        </thead>
+      
       <tbody>
-      <% @books.each do |book| %>
-        <tr>
-          <td><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></td>
-          <td><%= link_to book_path(book.id) do %><%= book.title %><% end %></td>
-          <td><%= book.body %></td>
-        </tr>
-      <% end %>
+        <% @books.each do |book| %>
+          <tr>
+            <td><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></td>
+            <td><%= link_to book_path(book.id) do %><%= book.title %><% end %></td>
+            <td><%= book.body %></td>
+          </tr>
+        <% end %>
+        <%= paginate @books %>
       </tbody>
-    </table>
-</div>    
+     </table>
+    </div>
+  </div>
+</div>
+

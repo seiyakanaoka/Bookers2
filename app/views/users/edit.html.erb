@@ -1,10 +1,17 @@
+<% if @user.errors.any? %>
+ <%= @user.errors.count %>error prohibited this obj from being saved:
+ <ul><% @user.errors.full_messages.each do |message| %></ul>
+   <li><%= message %></li>
+  <% end %>
+<% end %>
+
 <h2>User info</h2>
 <%= form_with model:@user, local:true do |f| %>
 <label for="input-name">Name</label>
 <%= f.text_field :name %>
 <label for="input-image">Image</label>
 <%= f.attachment_field :profile_image %>
-<%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+<%= attachment_image_tag @user, :profile_image, size: "40x40" %>
 <label for="input-introduction">Introduction</label>
 <%= f.text_area :introduction %>
 
