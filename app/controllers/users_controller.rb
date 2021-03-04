@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   
-  before_action :baria_user, only: [:edit, :destroy, :update]
-  
   def index
     @book = Book.new
     @users = User.page(params[:page]).reverse_order
@@ -16,9 +14,13 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+     @user = User.find(params[:id])
+    if @user == current_user
+      render "edit"
+    else
+      redirect_to user_path(current_user)
+    end
   end
-       
   
   def update
     @user = User.find(params[:id])
@@ -34,11 +36,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :introduction, :profile_image)
   end
   
-  def baria_user
-    unless User.find(params[:id]) == current_user.id
-           redirect_to user_path(current_user.id)
-  end
-  
-  end
-
 end
