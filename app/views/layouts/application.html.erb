@@ -5,7 +5,7 @@
     <title>Bookers2</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -21,30 +21,30 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
              <% if user_signed_in? %>
-             <li class="nav-item ">
-               <%= link_to user_path(current_user.id) do %><i class="fas fa-home">Home</i><% end %>
+             <li class="nav-item">
+               <%= link_to(user_path(current_user.id), class:"text-white") do %><i class="fas fa-home">Home</i><% end %>
              </li>
              <li class="nav-item">
-               <%= link_to users_path do %><i class="fas fa-users">Users</i><% end %>
+               <%= link_to(users_path, class:"text-white")  do %><i class="fas fa-users">Users</i><% end %>
              </li>
              <li class="nav-item">
-               <%= link_to books_path do %><i class="fas fa-book-open">Books</i><% end %>
+               <%= link_to(books_path, class:"text-white")  do %><i class="fas fa-book-open">Books</i><% end %>
              </li>
              <li class="nav-item">
-               <%= link_to destroy_user_session_path, method: :delete do %><i class="fas fa-sign-out-alt">Logout</i><% end %>
+               <%= link_to(destroy_user_session_path, method: :delete, class:"text-white")  do %><i class="fas fa-sign-out-alt">Logout</i><% end %>
              </li>
              <% else %>
              <li class="nav-item">
-               <%= link_to root_path do %><i class="fas fa-home">Home</i><% end %>
+               <%= link_to(root_path, class:"text-white")  do %><i class="fas fa-home">Home</i><% end %>
              </li>
              <li class="nav-item">
-               <%= link_to home_about_path do %><i class="fas fa-link">About</i><% end %>
+               <%= link_to(home_about_path, class:"text-white") do %><i class="fas fa-link">About</i><% end %>
              </li>
              <li class="nav-item">
-               <%= link_to new_user_registration_path do %><i class="fas fa-user-plus">Sign up</i><% end %>
+               <%= link_to(new_user_registration_path, class:"text-white") do %><i class="fas fa-user-plus">Sign up</i><% end %>
              </li>
              <li class="nav-item">
-               <%= link_to new_user_session_path do %><i class="fas fa-sign-in-alt">Login</i><% end %>
+               <%= link_to(new_user_session_path, class:"text-white") do %><i class="fas fa-sign-in-alt">Login</i><% end %>
              <% end %>
             </ul>
           </div>
@@ -53,7 +53,7 @@
     </header>
     
     <main class="mb-auto">
-      <div class="flash">
+      <div class="flash text-success">
       <% flash.each do |key, value| %>
         <%= content_tag(:div, value, class: "#{key}") %>
       <% end %>

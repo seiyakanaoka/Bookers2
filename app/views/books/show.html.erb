@@ -2,41 +2,48 @@
   <div class="row">
    <div class="col-md-3">
      <h1>User info</h1>
-       <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %><p>
-       <p><%= @user.name %></p>
-       <p><%= @user.introduction %></p>
+     <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %><p>
+         
+        <table class="table table-border-b">
+           <tbody>
+                <tr>
+                  <th>name</th><th><%= @user.name %></th>
+                </tr>
+                <tr>
+                  <th>introduction</th><th><%= @user.introduction %></th>
+                </tr>
+            </tbody>
+        </table>
        
 
-      <p class="btn btn-secondary"><%= link_to edit_user_path(@user.id) do %><i class="fas fa-user-cog"></i><% end %></p>
-
+      <div class="row"><%= link_to(edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block") do %><i class="fas fa-user-cog"></i><% end %></div>
       
-      <div class="book-form">
-     <h1>New book</h1>
-     <div class="book-form-content">
-       <%= form_with model:@books, local:true do |f| %>
+      <div class="book-form mt-3">
+        <h1>New book</h1>
+        <div class="book-form-content">
+        <%= form_with model:@books, local:true do |f| %>
 
-       <div class="book-field">
-         <%= f.label :title %>
-         <%= f.text_field :title %>
-       </div>
+        <div class="book-field">
+          <%= f.label :title %><br />
+          <%= f.text_field :title %>
+        </div>
 
-       <div class="book-field">
-         <%= f.label :body %>
-         <%= f.text_area :body %>
-       </div>
+        <div class="book-field">
+          <%= f.label :body %><br />
+          <%= f.text_area :body %>
+        </div>
 
-       <div class="book-action">
-         <%= f.submit "Create Book" %>
-       </div>
-       <% end %>
-     </div>
-  </div>
-      
+        <div class="book-action">
+          <%= f.submit "Create Book", class:"btn btn-success mb-5" %>
+        </div>
+        <% end %>
+        </div>
+      </div>
     </div>
    
     <div class="col-md-8 offset-md-1">
      <h1>Book detail</h1>
-     <table class="table table-striped">
+     <table class="table table-hover">
       <thead>
         <tr></tr>
         <tr></tr>
@@ -47,7 +54,8 @@
       
       <tbody>
         <tr>
-          <td><%= link_to user_path(@user.id) do %><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><%= @user.name %><% end %></td>
+          <td><%= link_to user_path(@user.id) do %><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><br />
+          <%= @user.name %><% end %></td>
           <td><%= link_to book_path(@book.id) do %><%= @book.title %><% end %></td>
           <td><%= @book.body %></td>
           <td><% if @user.id == current_user.id %>

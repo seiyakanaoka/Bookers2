@@ -2,30 +2,35 @@
   <div class="row">
    <div class="col-md-3">
      <h1>User info</h1>
-       <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></p>
-       <p><%= @user.name %></p>
-       <p><%= @user.introduction %></p>
-
-
-      <p class="btn btn-secondary"><%= link_to edit_user_path(@user.id) do %><i class="fas fa-user-cog"></i><% end %></p>
-      
-    <div class="book-form">
+        <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></p>
+        <table class="table table-bordered-b">
+            <tbody>
+                <tr></tr>
+                <tr><th>name</th><th><%= @user.name %></th></tr>
+                <tr><th>introduction</th><th><%= @user.introduction %></th></tr>
+            </tbody>
+        </table>
+    <div class="row">
+      <%= link_to(edit_user_path(@user.id), class:"btn btn-block btn-outline-secondary text-dark") do %><i class="fas fa-user-cog"></i><% end %>
+    </div>
+    
+    <div class="book-form mt-3">
       <h1>New book</h1>
       <div class="book-form-content">
       <%= form_with model:@book, local:true do |f| %>
 
       <div class="book-field">
-        <%= f.label :title %>
+        <%= f.label :title %><br />
         <%= f.text_field :title %>
       </div>
 
       <div class="book-field">
-        <%= f.label :body %>
+        <%= f.label :body %><br />
         <%= f.text_area :body %>
       </div>
 
       <div class="book-action">
-        <%= f.submit "Create Book" %>
+        <%= f.submit "Create Book",class:"btn btn-success mt-3 mb-5" %>
       </div>
       <% end %>
     </div>
@@ -35,11 +40,14 @@
       
     <div class="col-md-8 offset-md-1">
       <h1>Books</h1>
-      <table class="table table-striped">
+      <table class="table table-hover">
+        
        <thead>
-        <tr></tr>
-        <tr>Title</tr>
-        <tr>Opinion</tr>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Opinion</th>
+        </tr>
        </thead>
       
        <tbody>
@@ -50,9 +58,11 @@
             <td><%= book.body %></td>
           </tr>
         <% end %>
-      <%= paginate @books %>
+      
        </tbody>
+       
       </table>
+      <%= paginate @books %>
     </div>    
   </div>
 </div>
