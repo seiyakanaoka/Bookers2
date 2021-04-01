@@ -1,7 +1,7 @@
   <div class="error_explanation text-danger">
-        <% if @book.errors.any? %>
-        <h3><%= @book.errors.count %>error prohibited this obj from being saved:</h3>
-          <ul><% @book.errors.full_messages.each do |message| %>
+        <% if @books.errors.any? %>
+        <h3><%= @books.errors.count %>error prohibited this obj from being saved:</h3>
+          <ul><% @books.errors.full_messages.each do |message| %>
            <li><%= message %></li>
            <% end %>
            </ul>
@@ -10,72 +10,41 @@
 
 <div class="container">
   <div class="row">
+
     <div class="col-md-3">
-
-        <div class="user-info">
-          <h2>User info</h2>
-            <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></p>
-          
-            <table class="table table-border-b">
-              <tbody>
-                <tr>
-                  <th>name</th>
-                  <th><%= @user.name %></th>
-                </tr>
-                  <th>introduction</th>
-                  <th><%= @user.introduction %></th>
-                </tr>
-              </tbody>
-            </table>
-      
-            <div class="row"><%= link_to(edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block text-dark") do %>
-              <i class="fas fa-user-cog"></i><% end %>
-            </div>
-        </div>
-        
-        <div class="book-form">
-        <h2 class="mt-3">New book</h2>
-          <div class="book-form-content">
-          <%= form_with model:@book, local:true do |f| %>
-
-          <div class="book-field">
-            <%= f.label :title %><br />
-            <%= f.text_field :title %>
-          </div>
-
-          <div class="book-field">
-            <%= f.label :body %><br />
-            <%= f.text_area :body %>
-          </div>
-
-          <div class="book-action">
-            <%= f.submit "Create Book", class:"btn btn-success mb-5" %>
-          </div>
-          <% end %>
-          </div>
-        </div>
+      <%= render 'books/list', books: @books, user: @user %>
     </div>
-  
+
     <div class="col-md-8 offset-md-1">
       <h2>Books</h2>
       <table class="table table-hover table-invers">
-    
+
         <thead>
           <tr>
+            <th></th>
             <th>Title</th><th>Opinion</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
-      
+
         <tbody>
-          <% @books.each do |book| %>
+          <% @book.each do |book| %>
             <tr>
               <td><%= link_to user_path(book.user.id) do %><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><% end %></td>
               <td><%= link_to book_path(book.id) do %><%= book.title %><% end %></td>
               <td><%= book.body %></td>
+              <td>
+                <% if book.favorited_by?(current_user) %>
+                  <%= link_to book_favorites_path(book), method: :delete do %>♥<%= book.favorites.count %><% end %>
+                <% else %>
+                  <%= link_to book_favorites_path(book), method: :post do %>♡<%= book.favorites.count %><% end %>
+                <% end %>
+              </td>
+              <td>コメント数：<%= book.book_comments.count %></td>
             </tr>
           <% end %>
-           <%= paginate @books %>
+           <%= paginate @book %>
         </tbody>
       </table>
     </div>

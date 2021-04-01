@@ -1,18 +1,18 @@
 class UsersController < ApplicationController
-  
+
   def index
-    @book = Book.new
+    @books = Book.new
     @users = User.page(params[:page]).reverse_order
     @user = current_user
   end
-  
+
   def show
     @user = User.find(params[:id])
-    @books = @user.books
-    @books = @books.page(params[:page]).reverse_order
-    @book = Book.new
+    @book = @user.books
+    @booked = @book.page(params[:page]).reverse_order
+    @books = Book.new
   end
-  
+
   def edit
      @user = User.find(params[:id])
     if @user == current_user
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
-  
+
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
@@ -30,10 +30,10 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   private
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
   end
-  
+
 end
