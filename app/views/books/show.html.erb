@@ -32,6 +32,7 @@
             <%= link_to "Edit", edit_book_path(@book.id) %>
             <% end %>
           </td>
+          
           <td>
             <% if @book.favorited_by?(current_user) %>
               <%= link_to book_favorites_path(@book), method: :delete do %>♥<%= @book.favorites.count %><% end %>
