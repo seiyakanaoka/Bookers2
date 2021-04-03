@@ -326,7 +326,7 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   listen (>= 3.0.5, < 3.2)
   puma (~> 3.11)
-  rails (~> 5.2.4)
+  rails (~> 5.2.4, >= 5.2.4.5)
   refile!
   refile-mini_magick
   rspec-rails
