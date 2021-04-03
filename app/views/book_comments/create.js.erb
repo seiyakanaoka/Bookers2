@@ -1,1 +1,2 @@
-alert('a');
+$("#book_comments").html("<%= j(render 'books/bookcomment', book: @book) %>");
+document.getElementById("new_comment").value = "";

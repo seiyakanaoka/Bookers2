@@ -54,13 +54,13 @@
       </tbody>
     </table>
 
-    <div class="book_comment">
+    <div id="book_comments" class="book_comment">
       <%= render 'bookcomment', book: @book %>
     </div>
 
     <div class="new-comment">
       <%= form_with model:[@book, @book_comment] do |f| %>
-        <%= f.text_area :comment, rows: "5", placeholder: "コメントをここに", class: "form-control comment" %><br />
+        <%= f.text_area :comment, rows: "5", placeholder: "コメントをここに", class: "form-control comment", id: "new_comment" %><br />
         <%= f.submit "送信" %>
       <% end %>
     </div>
