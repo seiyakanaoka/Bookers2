@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search/search'
   root 'home#top'
   get 'home/about'
   devise_for :users
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
   end
   resources :users, only: [:index, :show, :edit, :update] do
-    member do 
+    member do
         get :follow, :follower
       end
     resource :relationships, only: [:create, :destroy]
