@@ -1,29 +1,36 @@
-<h1>Follower Users</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Follower Users</h1>
 
-<% if @follower_users.empty? == true %>
-  <p>ユーザーはいません</p>
-<% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>image</th>
-        <th>name</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
+      <% if @follower_users.empty? == true %>
+        <p class="mx-auto text-center">ユーザーはいません</p>
+      <% else %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>image</th>
+              <th>name</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
 
-    <tbody>
-      <% @follower_users.each do |user| %>
-      <tr>
-        <td><%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></td>
-        <td><%= user.name %></td>
-        <td>フォロー数：<%= user.following_user.count %></td>
-        <td>フォロワー数：<%= user.follower_user.count %></td>
-        <td><%= link_to "Show", user_path(user.id) %></td>
-      </tr>
+          <tbody>
+            <% @follower_users.each do |user| %>
+            <tr>
+              <td><%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></td>
+              <td><%= user.name %></td>
+              <td>フォロー数：<%= user.following_user.count %></td>
+              <td>フォロワー数：<%= user.follower_user.count %></td>
+              <td><%= link_to "Show", user_path(user.id) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
+
+    </div>
+  </div>
+</div>

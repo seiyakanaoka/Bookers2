@@ -1,0 +1,2 @@
+$("#book_<%= @book.id %>").html("<%= j(render partial: 'books/book', locals: { book: @book }) %>");
+console.log("<%= j(render @book) %>");
