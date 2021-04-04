@@ -17,6 +17,12 @@ class User < ApplicationRecord
   has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
   has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
 
+  after_create :send_welcome_mail
+
+  def send_welcome_mail
+    UserNoticeMailer.send_signup_email(self).deliver
+  end
+
   # ユーザーをフォローする、後ほどcontrollerで使用します。
   def follow(user_id)
     follower.create(followed_id: user_id)
